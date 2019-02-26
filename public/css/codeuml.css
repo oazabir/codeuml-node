@@ -37,6 +37,10 @@ h1 {
 }
 .CodeMirror pre {
   line-height: 1.5em;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  
+  
 }
 
 .CodeMirror pre.CodeMirror-cursor {
@@ -74,7 +78,7 @@ body {
 /*scroll bar for safari & chrome*/
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
   height: 15px;
   cursor: move;
 }
@@ -258,7 +262,7 @@ div.button > div.title {
   height: 98%;
   /*padding-top: 40px;
     margin-top: -30px;*/
-
+  padding: 10px;
   overflow: auto;
   position: relative;
   background: white;

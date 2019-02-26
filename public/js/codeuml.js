@@ -179,13 +179,11 @@ function refreshDiagram() {
         //   "text"
         // );
 
-        var postBody = "@startuml\n" + umltext + "\n@enduml";
-
         $.ajax({
           type: "POST",
           url: '/uml',
           data: JSON.stringify({
-            umlText: postBody,
+            umlText: umltext,
             umlType: lastUmlDiagram
           }),
           contentType: "application/json; charset=utf-8",
@@ -200,11 +198,23 @@ function refreshDiagram() {
 
             var img = document.createElement("img");
             img.src = response.svg;
+            img.onload = function () {
+              var canvas = document.getElementById("canvas"),
+                context = canvas.getContext("2d");
 
-            $("#umlimage_container")
-              .empty()
-              .append(img);
+              canvas.width = img.width;
+              canvas.height = img.height;
+              context.drawImage(img, 0, 0);
 
+              // var canvasdata = canvas.toDataURL("image/png");
+
+              // var pngimg = '<img style="position:absolute; top:0; left:0" src="' + canvasdata + '">';
+              // $("#umlimage_container")
+              //   .empty()
+              //   .append(pngimg);
+
+              $('#umlimage').remove();
+            };            
 
             saveUmlText(umltext);
 
