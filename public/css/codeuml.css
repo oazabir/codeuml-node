@@ -107,6 +107,7 @@ body {
   background-color: #aaaaaa;
   border: 1px solid #aaaaaa;
   -webkit-border-radius: 6px;
+  border-radius: 6px;
 }
 
 .unselectable {
@@ -238,9 +239,6 @@ div.button > div.title {
   bottom: 5px;
   font-size: 8pt;
   /* font-weight: bold; */
-}
-
-.subtitle {
 }
 
 #umltext {
