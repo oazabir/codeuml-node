@@ -33,11 +33,11 @@ const shortid = require("shortid");
 // Static files come from /public folder
 app.use(express.static("public"));
 app.listen(port);
-
+console.log("Listening on port: " + port)
 
 // Home page renders the index view
 app.get("/", function(req, res) {
-  res.render("index", { PLANTUML_API_URL: plantUmlApiUrl });
+  res.render("index", { PLANTUML_API_URL: plantUmlApiUrl, SUBTITLE: process.env.SUBTITLE });
 });
 
 // Load a diagram content
@@ -94,6 +94,7 @@ const createContainer = async (containerName) => {
 
 // Create the container on azure blob service if it does not already exist
 createContainer(containerName)
+  .then(console.log("Azure container initialized"))
   .catch(err => console.log(err));
 
 const uploadString = async (containerName, blobName, text) => {

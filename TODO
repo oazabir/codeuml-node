@@ -1,0 +1,19 @@
+RELEASED
+--------
+
+
+
+BUG
+---
+
+
+
+FEATURE
+-------
+* Configured watermark on diagram
+* Include https://github.com/RicardoNiepel/Azure-PlantUML
+
+TODO
+----
+* Create a separate github project for this
+* Deploy on Azure
