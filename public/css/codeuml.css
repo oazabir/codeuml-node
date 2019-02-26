@@ -35,6 +35,10 @@ h1 {
 .CodeMirror {
   font-size: 10pt;
 }
+.CodeMirror pre {
+  line-height: 1.5em;
+}
+
 .CodeMirror pre.CodeMirror-cursor {
   border-left: 1em solid lightgreen;
 }

@@ -5,17 +5,17 @@ var defaultUmlText;
 var lastUmlDiagram = loadUmlType();
 
 
-function getDiagramId(){
+function getDiagramId() {
   if (document.location.hash.length > 0)
     return document.location.hash.substr(1);
-  else 
+  else
     return "";
 }
-function setDiagramId(id){
+function setDiagramId(id) {
   document.location.hash = id;
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   //setIframeBackground();
 
   // -------------------- Begin Splitter -----------------------------
@@ -40,7 +40,7 @@ $(document).ready(function() {
     maxRight: $(window).width() * 0.9,
     accessKey: "R"
   });
-  $(window).resize(function() {
+  $(window).resize(function () {
     $("#MySplitter").trigger("resize");
   });
 
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
   $("#umlsnippets")
     .find(".button")
-    .click(function() {
+    .click(function () {
       var diagramType = $(this)
         .parent()
         .attr("class");
@@ -109,8 +109,8 @@ $(document).ready(function() {
 
   // If URL has a diagram location, then load that diagram
   if (getDiagramId().length > 0) {
-    $.get("/diagram/" + encodeURI(getDiagramId()), function(diagram) {
-      if(diagram) {
+    $.get("/diagram/" + encodeURI(getDiagramId()), function (diagram) {
+      if (diagram) {
         myCodeMirror.setValue(diagram.umlText);
         saveUmlText(diagram.umlText);
         saveUmlType(diagram.umlType);
@@ -122,17 +122,17 @@ $(document).ready(function() {
     if (existingUml != null && $.trim(existingUml).length > 0) {
       try {
         myCodeMirror.setValue(existingUml);
-      } catch (e) { 
+      } catch (e) {
         console.log(e)
       }
     }
   }
 
-  $("#umlimage").bind("load", function() {
+  $("#umlimage").bind("load", function () {
     lastTimer = null;
     hideProgress();
     refreshDiagram();
-    $(this).fadeTo(0, 0.5, function() {
+    $(this).fadeTo(0, 0.5, function () {
       $(this).fadeTo(300, 1.0);
     });
   });
@@ -156,7 +156,7 @@ function loadUmlType() {
 
 function refreshDiagram() {
   if (lastTimer == null) {
-    lastTimer = window.setTimeout(function() {
+    lastTimer = window.setTimeout(function () {
       // Remove starting and ending spaces
       var umltext = myCodeMirror
         .getValue()
@@ -183,25 +183,33 @@ function refreshDiagram() {
 
         $.ajax({
           type: "POST",
-          url: window.PLANTUML_API_URL,
-          data: postBody, // <-- Put comma here
-          contentType: "text/plain",
-          dataType: "text",
-          success: function(response, status) {
+          url: '/uml',
+          data: JSON.stringify({
+            umlText: postBody,
+            umlType: lastUmlDiagram
+          }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function (response, status) {
             hideProgress();
-            if (response.indexOf("Syntax error") != -1) {
-            } else {
-              var parser = new DOMParser();
-              var doc = parser.parseFromString(response, "image/svg+xml");
+            // var parser = new DOMParser();
+            // var doc = parser.parseFromString(response, "image/svg+xml");
+            // $("#umlimage_container")
+            //   .empty()
+            //   .append(doc.documentElement);
 
-              $("#umlimage_container")
-                .empty()
-                .append(doc.documentElement);
+            var img = document.createElement("img");
+            img.src = response.svg;
 
-              saveUmlText(umltext);
-            }
+            $("#umlimage_container")
+              .empty()
+              .append(img);
+
+
+            saveUmlText(umltext);
+
           },
-          error: function(xhr, status, error) {
+          error: function (xhr, status, error) {
             $("#umlimage_container")
               .empty()
               .append(error);
@@ -271,7 +279,7 @@ function menu_save() {
       umlType: lastUmlDiagram
     }),
     contentType: "application/json; charset=utf-8",
-    success: function(diagram) {
+    success: function (diagram) {
       hideProgress();
       if (diagram) {
         saveUmlText(diagram.umlText);
@@ -282,5 +290,5 @@ function menu_save() {
     },
     dataType: "json"
   });
- 
+
 }

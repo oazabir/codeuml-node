@@ -1,12 +1,19 @@
+// Load environment variables
 const dotenv = require('dotenv');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
-
 const containerName = process.env.CONTAINER_NAME || "codeuml";
 const port = process.env.PORT || 8080;
 const azureConnection = process.env.AZURE_STORAGE_CONNECTION_STRING;
 const plantUmlApiUrl = process.env.PLANTUML_API_URL;
+
+// Axios
+const axios = require('axios')
+
+// svg2img
+const svg2img = require('svg2img');
+
 
 // Initialize azure blob service
 const path = require('path');
@@ -35,9 +42,50 @@ app.use(express.static("public"));
 app.listen(port);
 console.log("Listening on port: " + port)
 
+const btoa = require('btoa');
+ 
+
+app.post("/uml", (request, response) => {
+
+  var content = request.body.umlText;
+  // Call plantuml service to get SVG out
+  axios.post(
+    plantUmlApiUrl, 
+    content,
+    {
+      headers: {
+        'Content-Type': 'text/plain',
+        'Accept': 'text/plain',
+        'Content-Length': content.length
+      },
+    })
+    .then((res) => {
+      var svgURI = 'data:image/svg+xml;base64,'+ btoa(res.data);
+      // //console.log(svgURI);
+
+      // svg2img(res.data, {format:'png','quality':90}, function(error, buffer) {
+      //   let pngURI = 'data:image/png;base64,'+ buffer.toString('base64');
+      //   //console.log(pngURI);
+        
+      //   response.json({
+      //     svg: svgURI,
+      //     png: pngURI
+      //   });
+      // });
+      response.json({
+        svg: svgURI
+      })      
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+
+});
+
+
 // Home page renders the index view
 app.get("/", function(req, res) {
-  res.render("index", { PLANTUML_API_URL: plantUmlApiUrl, SUBTITLE: process.env.SUBTITLE });
+  res.render("index", { SUBTITLE: process.env.SUBTITLE });
 });
 
 // Load a diagram content
