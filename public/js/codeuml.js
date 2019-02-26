@@ -3,7 +3,7 @@ var DEFAULT_DIAGRAM_TYPE = "sequence_diagram";
 var myCodeMirror;
 var defaultUmlText;
 var lastUmlDiagram = loadUmlType();
-if (lastUmlDiagram == null) lastUmlDiagram = DEFAULT_DIAGRAM_TYPE;
+
 
 var diagramId = "";
 if (document.location.hash > 0) {
@@ -144,7 +144,7 @@ function saveUmlType(type) {
   window.localStorage.setItem("umltype", type);
 }
 function loadUmlType() {
-  return window.localStorage.getItem("umltype");
+  return window.localStorage.getItem("umltype") || DEFAULT_DIAGRAM_TYPE;
 }
 
 function refreshDiagram() {
@@ -248,7 +248,8 @@ function hideProgress() {
 function menu_new() {
   changeDiagramType(DEFAULT_DIAGRAM_TYPE);
   myCodeMirror.setValue(defaultUmlText);
-  saveUmlType(null);
+  saveUmlType(DEFAULT_DIAGRAM_TYPE);
+  saveUmlText(defaultUmlText);
   if (diagramId.length > 0) {
     document.location = document.location.pathname;
   }
