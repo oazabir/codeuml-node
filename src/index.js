@@ -41,7 +41,8 @@ console.log("Listening on port: " + port)
 
 const btoa = require('btoa');
  
-
+// Generate UML diagram using plantuml
+// POST the UML text on this and get diagram SVG back
 app.post("/uml", (request, response) => {
 
   var content = request.body.umlText;
@@ -131,6 +132,10 @@ app.post("/diagram/:id", function(req, res) {
 });
 
 
+// -----------------------------------------------------------
+// Azure Blob Stuff
+// -----------------------------------------------------------
+
 const createContainer = async (containerName) => {
   return new Promise((resolve, reject) => {
       blobService.createContainerIfNotExists(containerName, { publicAccessLevel: 'blob' }, err => {
@@ -159,7 +164,6 @@ const uploadString = async (containerName, blobName, text) => {
       });
   });
 };
-
 
 const getString = async (containerName, blobName) => {
   return new Promise((resolve, reject) => {
