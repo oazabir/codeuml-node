@@ -43,8 +43,8 @@ app.get("/", function(req, res) {
 // Load a diagram content
 app.get("/diagram/:id", function(req, res) {
   const blobId = req.params.id;
-  downloadBlob(containerName, blobId)
-    .then(response => res.json(JSON.parse(respone.text)))
+  getString(containerName, blobId)
+    .then(response => res.json(JSON.parse(response.blobContent)))
     .catch(err => {
       console.log(err); 
       res.status(404).send("Cannot load diagram with ID:"+ req.params.id);
@@ -108,3 +108,17 @@ const uploadString = async (containerName, blobName, text) => {
       });
   });
 };
+
+
+const getString = async (containerName, blobName) => {
+  return new Promise((resolve, reject) => {
+      blobService.getBlobToText(containerName, blobName, (err, blobContent, blob) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve({ blobContent: blobContent, blob: blob });
+          }
+      });
+  });
+};
+

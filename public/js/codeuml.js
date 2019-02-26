@@ -5,9 +5,14 @@ var defaultUmlText;
 var lastUmlDiagram = loadUmlType();
 
 
-var diagramId = "";
-if (document.location.hash > 0) {
-  diagramId = document.location.hash;
+function getDiagramId(){
+  if (document.location.hash.length > 0)
+    return document.location.hash.substr(1);
+  else 
+    return "";
+}
+function setDiagramId(id){
+  document.location.hash = id;
 }
 
 $(document).ready(function() {
@@ -103,11 +108,13 @@ $(document).ready(function() {
   // -------------------- Load/Restore UML diagram -----------------------------
 
   // If URL has a diagram location, then load that diagram
-  if (diagramId.length > 0) {
-    $.get("/diagram/" + encodeURI(diagramId), function(result) {
-      myCodeMirror.setValue(result.umlText);
-      saveUmlText(result.umlText);
-      saveUmlType(result.umlType);
+  if (getDiagramId().length > 0) {
+    $.get("/diagram/" + encodeURI(getDiagramId()), function(diagram) {
+      if(diagram) {
+        myCodeMirror.setValue(diagram.umlText);
+        saveUmlText(diagram.umlText);
+        saveUmlType(diagram.umlType);
+      }
     });
   } else {
     // restore previously saved UML
@@ -250,30 +257,30 @@ function menu_new() {
   myCodeMirror.setValue(defaultUmlText);
   saveUmlType(DEFAULT_DIAGRAM_TYPE);
   saveUmlText(defaultUmlText);
-  if (diagramId.length > 0) {
-    document.location = document.location.pathname;
-  }
+  setDiagramId('');
 }
 
 function menu_save() {
   showProgress();
-  $.post(
-    "/diagram/" + diagramId,
-    {
+
+  $.ajax({
+    type: "POST",
+    url: "/diagram/" + getDiagramId(),
+    data: JSON.stringify({
       umlText: myCodeMirror.getValue(),
       umlType: lastUmlDiagram
-    },
-    function(result) {
+    }),
+    contentType: "application/json; charset=utf-8",
+    success: function(diagram) {
       hideProgress();
-      var diagram = JSON.parse(result);
       if (diagram) {
         saveUmlText(diagram.umlText);
         saveUmlType(diagram.umlType);
 
-        document.location.hash = diagram.id;
-        diagramId = diagram.id;
+        setDiagramId(diagram.id);
       }
     },
-    "text"
-  );
+    dataType: "json"
+  });
+ 
 }
