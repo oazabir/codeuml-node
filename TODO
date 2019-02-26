@@ -5,7 +5,8 @@ RELEASED
 
 BUG
 ---
-
+* Last working diagram does not load back
+* Cannot load an already saved diagram
 
 
 FEATURE

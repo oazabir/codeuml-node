@@ -114,9 +114,10 @@ $(document).ready(function() {
     var existingUml = loadUmlText();
     if (existingUml != null && $.trim(existingUml).length > 0) {
       try {
-        var decoded = $.base64.decode(existingUml);
-        myCodeMirror.setValue(decoded);
-      } catch (e) {}
+        myCodeMirror.setValue(existingUml);
+      } catch (e) { 
+        console.log(e)
+      }
     }
   }
 
