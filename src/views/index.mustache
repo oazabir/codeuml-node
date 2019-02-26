@@ -1,0 +1,300 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head runat="server">
+    <title>Code your UML diagrams</title>
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="js/codemirror.css" rel="stylesheet" type="text/css" />
+    <link href="css/codeuml.css" rel="stylesheet" type="text/css" />
+    <link href="css/ticker-style.css" rel="Stylesheet" type="text/css" />
+
+    <script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
+    <script
+      src="js/jquery-ui-1.8.18.custom.min.js"
+      type="text/javascript"
+    ></script>
+    <script src="js/splitter.js" type="text/javascript"></script>
+    <script src="js/codemirror.js" type="text/javascript"></script>
+    <script src="js/jquery.base64.js" type="text/javascript"></script>
+
+    <script src="js/codeuml.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		window.PLANTUML_API_URL = "{{{ PLANTUML_API_URL }}}";
+	</script>
+  </head>
+
+<body>
+	<div id="header" class="unselectable">
+		<h1>
+			<div class="title">
+				codeuml</div>
+			<div class="subtitle">
+			For Tesco use only
+			</div>
+		</h1>
+		<!--        <div id="ticker">
+            News ticker
+        </div>-->
+
+		<div id="menu">
+			<div class="poweredby">
+				Powered by <a href="http://plantuml.sourceforge.net">Plantuml</a></div>
+			<a href="javascript:menu_new()">
+				<div class="button">
+					<div class="icon">
+						&diams;</div>
+					<div class="title">
+						New</div>
+				</div>
+			</a>
+			<a href="javascript:menu_save()">
+				<div class="button">
+					<div class="icon">
+						&hearts;</div>
+					<div class="title">
+						Save</div>
+				</div>
+			</a>
+			<a href="http://plantuml.sourceforge.net">
+				<div class="button">
+					<div class="icon">
+						?</div>
+					<div class="title">
+						Help</div>
+				</div>
+			</a>
+			<a href="http://omaralzabir.com">
+				<div class="button">
+					<div class="icon">
+						&copy;</div>
+					<div class="title">
+						Omar AL Zabir</div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div id="MySplitter">
+		<div class="SplitterPane unselectable">
+			<div id="umlsnippets">
+				<div id="scrollable">
+					<!-- Sequence diagram -->
+					<h2>
+						Sequence
+					</h2>
+					<div class="sequence_diagram">
+						<div class="button">
+							<div class="icon">
+								A&rarr;B</div>
+							<div class="title">
+								Sync Msg</div>
+							<pre class="umlsnippet">A -> B: Sync Message
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								A&mdash;B</div>
+							<div class="title">
+								Async Msg</div>
+							<pre class="umlsnippet">A ->> B: Async Message
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								A&rarr;A</div>
+							<div class="title">
+								Self Msg</div>
+							<pre class="umlsnippet">B -> B: Do work
+activate B #FFBBBB
+    
+deactivate B
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								alt</div>
+							<div class="title">
+								Alternate</div>
+							<pre class="umlsnippet">alt Success
+    A -> B: Success
+else failed
+    A -> C: Fail
+end
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&Omega;</div>
+							<div class="title">
+								Loop</div>
+							<pre class="umlsnippet">loop until some condition
+    A -> B: Keep working
+end
+</pre>
+						</div>
+					</div>
+					<h2>
+						Use case
+					</h2>
+					<div class="usecase_diagram">
+						<div class="button">
+							<div class="icon">
+								A->(B)</div>
+							<div class="title">
+								Actor -> Usecase</div>
+							<pre class="umlsnippet">Customer -&gt; (start) : Customer starts application
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								(A)</div>
+							<div class="title">
+								Use case</div>
+							<pre class="umlsnippet">usecase (First usecase) as U1
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								Actor</div>
+							<div class="title">
+								Actor</div>
+							<pre class="umlsnippet">actor Customer as C
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&larr;</div>
+							<div class="title">
+								Extend</div>
+							<pre class="umlsnippet">(Start) &lt;|-- (Use)
+</pre>
+						</div>
+					</div>
+					<h2>
+						Class</h2>
+					<div class="class_diagram">
+						<div class="button">
+							<div class="icon">
+								&copy;</div>
+							<div class="title">
+								Class</div>
+							<pre class="umlsnippet">class Dummy {
+  String data
+  void methods()
+}
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&diams;&rarr;</div>
+							<div class="title">
+								Contains</div>
+							<pre class="umlsnippet">Class01 "1" *-- "many" Class02 : contains
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&Psi;</div>
+							<div class="title">
+								Aggregation</div>
+							<pre class="umlsnippet">Class03 o-- Class04 : agregation
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&rarr;</div>
+							<div class="title">
+								Directed</div>
+							<pre class="umlsnippet">Class05 --> "1" Class06
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								A&mdash;B</div>
+							<div class="title">
+								Association</div>
+							<pre class="umlsnippet">Driver -- Car: drives
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&Delta;</div>
+							<div class="title">
+								Inherits</div>
+							<pre class="umlsnippet">Parent &lt;|-- Child
+</pre>
+						</div>
+					</div>
+					<h2>
+						Component</h2>
+					<div class="component_diagram">
+						<div class="button">
+							<div class="icon">
+								&Omicron;</div>
+							<div class="title">
+								Interface</div>
+							<pre class="umlsnippet">HTTP - [Webserver]
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								[A]</div>
+							<div class="title">
+								Component</div>
+							<pre class="umlsnippet">[Component]
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								C&rarr;&Omicron;</div>
+							<div class="title">
+								Use</div>
+							<pre class="umlsnippet">[Client] ..> HTTP : use
+</pre>
+						</div>
+						<div class="button">
+							<div class="icon">
+								&Pi;</div>
+							<div class="title">
+								Package</div>
+							<pre class="umlsnippet">package "Some Group" {
+    HTTP - [First Component]
+    [Another Component]
+}
+</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="CenterAndRight">
+			<div class="SplitterPane">
+				<img src="img/ajax-loader.gif" id="ProgressIndicator" />
+                <textarea id="umltext" rows="10" cols="40">Actor A
+participant B
+
+A -> B: Do Something
+activate B
+    B -> B: Do work
+    activate B #FFBBBB
+    deactivate B
+    alt Success
+        B ->> C: Success
+    else failed
+        B ->> C: Fail
+    end
+    B --> A: Return
+deactivate B
+
+</textarea>
+            </div>
+            <div class="SplitterPane">
+                <div id="umlimage_container">
+                    <img id="umlimage" src="img/defaultdiagram.png" />
+                </div>             
+            </div>
+        </div>
+        <!-- #CenterAndRight -->
+    </div>
+    <!-- #MySplitter -->
+</body>
+</html>

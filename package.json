@@ -1,0 +1,21 @@
+{
+  "name": "codeuml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js localhost 8080"
+  },
+  "dependencies": {
+    "azure-storage": "^2.10.2",
+    "body-parser": "1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "4.16.4",
+    "mustache-express": "1.2.8",
+    "shortid": "2.2.14"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.4"
+  },
+  "keywords": []
+}
