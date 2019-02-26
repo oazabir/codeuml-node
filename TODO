@@ -2,7 +2,8 @@ RELEASED
 --------
 * Last working diagram does not load back
 * Cannot load an already saved diagram
-
+* Plantuml service proxy through node
+* Configured watermark on diagram
 
 
 BUG
@@ -11,11 +12,8 @@ BUG
 
 FEATURE
 -------
-* Plantuml service proxy through node
-* Configured watermark on diagram
 * Include https://github.com/RicardoNiepel/Azure-PlantUML
 
 TODO
 ----
 * Create a separate github project for this
-* Deploy on Azure
