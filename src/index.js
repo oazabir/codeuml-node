@@ -1,5 +1,6 @@
 // Load environment variables
 const dotenv = require('dotenv');
+const endOfLine = require('os').EOL;
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
@@ -113,7 +114,7 @@ app.post("/diagram", function(req, res) {
     .then(response => res.json(body))
     .catch(err => {
       console.log(err); 
-      res.status(500).send("Cannot save diagram with ID: "+ body.id);
+      res.status(500).send("Cannot save diagram with ID: "+ body.id + endOfLine + err.toString());
     });
   
 });
@@ -127,7 +128,7 @@ app.post("/diagram/:id", function(req, res) {
     .then(response => res.json(body))
     .catch(err => {
       console.log(err); 
-      res.status(500).send("Cannot save diagram with ID: "+ body.id);
+      res.status(500).send("Cannot save diagram with ID: "+ body.id + endOfLine + err.toString());
     });  
 });
 
