@@ -255,13 +255,50 @@ div.button > div.title {
   background-color: #353535;
 }
 
-#umlimage_container {
+#TopAndBottom {
+  overflow: hidden;
+}
+
+#umlimage_header {
+  overflow: hidden;
   width: 98%;
   height: 98%;
   /*padding-top: 40px;
     margin-top: -30px;*/
   padding: 10px;
-  overflow: auto;
+  position: relative;
+  background: white;
+}
+
+#headerContainer {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100px;
+  z-index: 5000;
+  background: white;
+  overflow: hidden;
+  padding: 10px;
+  width: 98%;
+}
+
+#bodyContainer {
+  position: relative;
+  padding: 10px;  
+  overflow: scroll;
+  background: white;
+}
+
+#bodyCanvas {
+  position: relative;  
+  top: -100px;
+}
+
+#umlimage_container {
+  width: 98%;
+  height: 98%;
+  /*padding-top: 40px;
+    margin-top: -30px;*/
+  
   position: relative;
   background: white;
 }
@@ -281,6 +318,7 @@ div.button > div.title {
 pre.umlsnippet {
   display: none;
 }
+
 #scrollable {
   padding: 0;
   margin: 0;

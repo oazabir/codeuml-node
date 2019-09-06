@@ -40,6 +40,17 @@ $(document).ready(function () {
     maxRight: $(window).width() * 0.9,
     accessKey: "R"
   });
+  // Spllier on the UML rendered image
+  $("#TopAndBottom").splitter({
+    type: "h",
+    outline: true,
+    minTop: 100,
+    sizeTop: 100,
+    maxTop: $(window).height() * 0.5,
+    accessKey: "T"
+  });
+
+  
   $(window).resize(function () {
     $("#MySplitter").trigger("resize");
   });
@@ -199,12 +210,23 @@ function refreshDiagram() {
             var img = document.createElement("img");
             img.src = response.svg;
             img.onload = function () {
-              var canvas = document.getElementById("canvas"),
-                context = canvas.getContext("2d");
+              
+              var topHeight = $('#headerContainer').height();
 
-              canvas.width = img.width;
-              canvas.height = img.height;
-              context.drawImage(img, 0, 0);
+              var bodyCanvas = document.getElementById("bodyCanvas"),
+                  bodyContext = bodyCanvas.getContext("2d");
+
+              bodyCanvas.width = img.width;
+              bodyCanvas.height = img.height;
+              bodyContext.drawImage(img, 0, 0);
+
+              var headerCanvas = document.getElementById("headerCanvas"),
+                  headerContext = headerCanvas.getContext("2d");
+
+              headerCanvas.width = img.width;
+              headerCanvas.height = img.height;
+              headerContext.drawImage(img, 0, 0);
+
 
               // var canvasdata = canvas.toDataURL("image/png");
 
@@ -213,14 +235,17 @@ function refreshDiagram() {
               //   .empty()
               //   .append(pngimg);
 
-              $('#umlimage').remove();
+              $('#umlimage').remove();            
+              bodyContainer.onscroll = function() {
+                headerContainer.scrollLeft = bodyContainer.scrollLeft;
+              }
             };            
 
             saveUmlText(umltext);
 
           },
           error: function (xhr, status, error) {
-            $("#umlimage_container")
+            $("#bodyContainer")
               .empty()
               .append(error);
             hideProgress();
@@ -233,6 +258,23 @@ function refreshDiagram() {
     lastTimer = null;
     refreshDiagram();
   }
+}
+
+function cloneCanvas(oldCanvas) {
+
+  //create a new canvas
+  var newCanvas = document.createElement('canvas');
+  var context = newCanvas.getContext('2d');
+
+  //set dimensions
+  newCanvas.width = oldCanvas.width;
+  newCanvas.height = oldCanvas.height;
+
+  //apply the old canvas to the new one
+  context.drawImage(oldCanvas, 0, 0);
+
+  //return the new canvas
+  return newCanvas;
 }
 
 function validDiagramText(umltext) {
