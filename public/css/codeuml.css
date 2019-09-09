@@ -273,24 +273,26 @@ div.button > div.title {
 #headerContainer {
   position: absolute;
   top: 0; left: 0;
-  height: 100px;
+  height: 80px;
   z-index: 5000;
   background: white;
   overflow: hidden;
-  padding: 10px;
+  /* padding: 10px; */
   width: 98%;
 }
 
 #bodyContainer {
   position: relative;
-  padding: 10px;  
+  /* padding: 10px;   */
   overflow: scroll;
   background: white;
+  width: 99%; 
+  height: 99%;
 }
 
 #bodyCanvas {
   position: relative;  
-  top: -100px;
+  
 }
 
 #umlimage_container {

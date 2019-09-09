@@ -40,15 +40,15 @@ $(document).ready(function () {
     maxRight: $(window).width() * 0.9,
     accessKey: "R"
   });
-  // Spllier on the UML rendered image
-  $("#TopAndBottom").splitter({
-    type: "h",
-    outline: true,
-    minTop: 100,
-    sizeTop: 100,
-    maxTop: $(window).height() * 0.5,
-    accessKey: "T"
-  });
+  // // Spllier on the UML rendered image
+  // $("#TopAndBottom").splitter({
+  //   type: "h",
+  //   outline: true,
+  //   minTop: 100,
+  //   sizeTop: 100,
+  //   maxTop: $(window).height() * 0.5,
+  //   accessKey: "T"
+  // });
 
   
   $(window).resize(function () {
@@ -211,8 +211,6 @@ function refreshDiagram() {
             img.src = response.svg;
             img.onload = function () {
               
-              var topHeight = $('#headerContainer').height();
-
               var bodyCanvas = document.getElementById("bodyCanvas"),
                   bodyContext = bodyCanvas.getContext("2d");
 
