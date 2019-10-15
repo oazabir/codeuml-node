@@ -365,8 +365,8 @@ pre.umlsnippet {
 .preview #close_preview {
   display: block;
   position: absolute;
-  right: 10;
-  top: 10;
+  right: 26;
+  top: 2;
   z-index: 30000;
   background-color: #1ba1e2;
   padding: 10;
