@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "watch": "nodemon src/index.js localhost 8080",
+    "watch": "nodemon --watch ./src --watch ./public localhost 8080",
     "start": "node src/index.js"
   },
   "dependencies": {

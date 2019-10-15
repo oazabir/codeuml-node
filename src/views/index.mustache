@@ -19,6 +19,7 @@
   </head>
 
 <body>
+	<div id="close_preview" onclick="menu_stopPreview()">x</div>
 	<div id="header" class="unselectable">
 		<h1>
 			<div class="title">
@@ -33,7 +34,17 @@
 
 		<div id="menu">
 			<div class="poweredby">
-				Powered by <a href="http://plantuml.sourceforge.net">Plantuml</a></div>
+				Powered by <a href="http://plantuml.sourceforge.net">Plantuml</a>
+				<br />
+				Created by <a href="https://omaralzabir.com">Omar AL Zabir</a></div>
+			<a href="javascript:menu_fullscreen()">
+				<div class="button">
+					<div class="icon">
+						+</div>
+					<div class="title">
+						Fullscreen</div>
+				</div>
+			</a>
 			<a href="javascript:menu_new()">
 				<div class="button">
 					<div class="icon">
@@ -58,14 +69,7 @@
 						Help</div>
 				</div>
 			</a>
-			<a href="http://omaralzabir.com">
-				<div class="button">
-					<div class="icon">
-						&copy;</div>
-					<div class="title">
-						Omar AL Zabir</div>
-				</div>
-			</a>
+			
 		</div>
 	</div>
 	<div id="MySplitter">

@@ -318,6 +318,14 @@ function menu_new() {
   setDiagramId('');
 }
 
+function menu_fullscreen() {
+  $('body').addClass('preview');
+}
+
+function menu_stopPreview() {
+  $('body').removeClass('preview');
+}
+
 function menu_save() {
   showProgress();
 
